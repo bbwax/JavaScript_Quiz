@@ -11,31 +11,60 @@
 </head>
 
 <body>
-    
+
     <!-- Main Outside Div -->
-    <div class = "outside-container">
-        
+    <div class="outside-container">
+
         <!-- top-bar section -->
-        <div class="top-bar">
-            <button> View Highscore</button>
+        <div class="top-bar" id="top-bar-info">
+            <button class="nav-button"> View Highscore</button>
             <p>Timer: 00:00 </p>
         </div>
 
         <!-- Inside Div -->
         <div class="inside-container">
-            <header class ="quiz-intro">
+            <header class="quiz-intro" id="quiz-intro-screen">
                 <h1>Welcome to the quiz</h1>
                 <p>To start the quiz, click on "start quiz"!</p>
-                <button>Start Quiz</button>
+                <button class="nav-button" id="start-quiz-button">Start Quiz</button>
             </header>
 
 
             <!-- Main Quiz Content -->
             <main>
+                <section class="question-screen" id="question-screen">
+                    <h2 class="question-title" id="question-title"></h2>
+                    <ul>
+
+                    </ul>
+                    <footer class="question-response" id="question-response">
+                        <p>Incorrect</p>
+
+                    </footer>
+
+                </section>
+
+                <section class="quiz-finished-screen" id="quiz-finished-screen">
+                    <h2 class="quiz-finished-title" id="quiz-finished-title"></h2>
+                    <p>Final Score: 0</p>
+                    <div class="quiz-score" id="quiz-score">
+                        <input type="text" placeholder="Type Initials Here">
+                        <button class="nav-button">submit</button>
+                    </div>
+                </section>
+
+                <section class="highscore-screen" id="highscore-screen">
+                    <h2 class="highscore-title" id="highscore-title">High score:</h2>
+                    <ol>
+
+                    </ol>
+                    <button id="go-back-button">Go Back</button>
+                    <button id="clear-score-button">Clear Score</button>
+                </section>
 
 
 
-                
+
             </main>
 
 
