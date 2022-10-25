@@ -26,6 +26,16 @@ var goBackButtonEl = document.querySelector
     ("#go-back-button");
 var clearScoreButtonEl = document.querySelector
     ("#clear-score-button");
+var answer1El = document.querySelector
+    ("#answer-1");
+var answer2El = document.querySelector
+    ("#answer-2");
+var answer3El = document.querySelector
+    ("#answer-3");
+var answer4El = document.querySelector
+    ("#answer-4");
+var li = document.getElementsByTagName
+    ("li");
 var timer = 75;
 var qindex = 0;
 
@@ -74,33 +84,58 @@ startButtonEl.addEventListener("click",
 
 function nextQuestion() {
     var currentquestion = quizquestions[qindex];
-    
-    questionTitleEl.
-    console.log(currentquestion.question);
+
+
+    questionTitleEl.innerHTML = currentquestion.question;
+    answer1El.innerHTML = currentquestion.answers[0];
+    answer2El.innerHTML = currentquestion.answers[1];
+    answer3El.innerHTML = currentquestion.answers[2];
+    answer4El.innerHTML = currentquestion.answers[3];
+
+
+
     qindex++;
+    console.log(qindex);
+    console.log(li);
+    li.addEventListener("click", 
+    function () {
+        console.log("click");
+    }
+    
+)
 }
 
 
-
-//quiz questions
-
-var quizquestions = [
-    {
-        question: "Commonly used data types DO Not Include:",
-        correctanswer: "alerts",
-        answers: ["strings", "booleans", "numbers", "alerts"],
-    },
-    {
-        question: "The condition in an if/ else statement is enclosed with _____.",
-        correctanswer: "parenthesis",
-        incorrectanswers: ["quotes", "curly brackets", "square brackets"],
-    }
-
-]
+//question response function
+// function questionResponse (){
+// li.addEventListener("click", 
+//     function () {
+//         console.log("click");
+//     }
+// )
+// }
 
 
 
-// quiz.newquestion( 
+    //quiz questions
+
+    var quizquestions = [
+        {
+            question: "Commonly used data types DO Not Include:",
+            correctanswer: "alerts",
+            answers: ["strings", "booleans", "numbers", "alerts"],
+        },
+        {
+            question: "The condition in an if/ else statement is enclosed with _____.",
+            correctanswer: "parenthesis",
+            incorrectanswers: ["quotes", "curly brackets", "square brackets",],
+        }
+
+    ]
+
+
+
+// quiz.newquestion(
 //     question("Commonly used data types DO Not Include:")
 //         .correctAnswer("alerts")
 //         .incorrectAnswers("strings", "booleans", "numbers")
