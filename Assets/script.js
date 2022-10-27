@@ -4,6 +4,8 @@ var startButtonEl = document.querySelector
     ("#start-quiz-button");
 var topBarInfoEl = document.querySelector
     ("#top-bar-info");
+var timerEl = document.querySelector
+    ("#timer");
 var quizIntroScreenEl = document.querySelector
     ("#quiz-intro-screen");
 var questionScreenEl = document.querySelector
@@ -34,26 +36,30 @@ var answer3El = document.querySelector
     ("#answer-3");
 var answer4El = document.querySelector
     ("#answer-4");
+var answerButtonEl = document.querySelectorAll
+    (".answer-button");
 var li = document.getElementsByTagName
     ("li");
 var timer = 75;
 var qindex = 0;
 
-//switch from into screen to quiz screen and display first question//
+//switch from intro screen to quiz screen and display first question//
 startButtonEl.addEventListener("click",
     function () {
         quizIntroScreenEl.setAttribute("style", "display: none");
         questionScreenEl.setAttribute("style", "display: block");
+        questionResponseEl.setAttribute("style", "display: none");
+
 
         var countdown = setInterval(
             function () {
                 if (timer >= 0) {
-                    topBarInfoEl.textContent = "Timer: " + timer;
+                    timerEl.textContent = "Timer: " + timer;
                     timer--;
                 }
                 else {
                     clearInterval(countdown)
-                    topBarInfoEl.textContent = "You are out of Time"
+                    timerEl.textContent = "You are out of Time"
                 }
             }, 1000
         );
@@ -61,28 +67,13 @@ startButtonEl.addEventListener("click",
 
     });
 
-// start timer when start-button clicked
-// startButtonEl.addEventListener("click",
-//     function () {
-//         var time = 60;
-//         setInterval(function () {
-//             time--;
-//             if (time >= 0){
-//                 topBarInfoEl.textContent = "Timer: " + time;
-//             }
-
-//         }, 1000);
-
-//     };
-
-//);
-
-
 
 //populate questionTitleEl with questions and ul with buttons displaying correctAnswer and incorrectAnswer
 //next question function
 
 function nextQuestion() {
+    if (quizquestions[qindex]){
+
     var currentquestion = quizquestions[qindex];
 
 
@@ -94,15 +85,42 @@ function nextQuestion() {
 
 
 
-    qindex++;
-    console.log(qindex);
-    console.log(li);
-    li.addEventListener("click", 
-    function () {
-        console.log("click");
+   
     }
-    
-)
+    //switch to quiz over/score screen
+    else {
+        console.log("quizover")
+    }
+
+}
+
+//function for displaying if answer clicked is correct/incorrect and changing display question response
+for (i = 0; i < answerButtonEl.length; i++) {
+    answerButtonEl[i].addEventListener("click",
+        function (e) {
+            handleResponse(e);
+        })
+
+}
+
+function handleResponse (e){
+    var selectedAnswer = e.target.textContent;
+    var rightAnswer = quizquestions[qindex].correctanswer;
+    console.log(selectedAnswer,rightAnswer);
+     if ( selectedAnswer == rightAnswer){
+        questionResponseEl.setAttribute("style", "display: block");
+        questionResponseEl.textContent= "CORRECT";
+
+        console.log("correct");
+     }
+     else{
+        questionResponseEl.setAttribute("style", "display: block");
+        questionResponseEl.textContent= "YOU ARE WRONG!";
+        console.log("you are wrong");
+        timer = timer - 10; 
+     }
+     qindex++;
+     nextQuestion();
 }
 
 
@@ -117,50 +135,38 @@ function nextQuestion() {
 
 
 
-    //quiz questions
+//quiz questions
 
-    var quizquestions = [
-        {
-            question: "Commonly used data types DO Not Include:",
-            correctanswer: "alerts",
-            answers: ["strings", "booleans", "numbers", "alerts"],
-        },
-        {
-            question: "The condition in an if/ else statement is enclosed with _____.",
-            correctanswer: "parenthesis",
-            incorrectanswers: ["quotes", "curly brackets", "square brackets",],
-        }
+var quizquestions = [
+    {
+        question: "Commonly used data types DO Not Include:",
+        correctanswer: "alerts",
+        answers: ["strings", "booleans", "numbers", "alerts"],
+    },
+    {
+        question: "The condition in an if/ else statement is enclosed with _____.",
+        correctanswer: "parenthesis",
+        answers: ["quotes", "curly brackets", "square brackets", "parenthesis"],
+    },
+    {
+        question: "Arrays in JavaScript can be used to store______.",
+        correctAnswer: "all of the above",
+        answers: ["numbers and strings", "other arrays", "booleans", "all of the above"],
+    },
+    {
+        question: "String values must be enclosed within ____ when being assigned to variables.",
+        correctAnswer: "quotes",
+        answers: ["commas", "curly brackets", "parenthesis", "quotes"],
+    },
+    {
+        question: "A very useful tool used during development and debugging for printing content to the debugger is:",
+        correctAnswer: "console.log",
+        answers: ["JavaScript", "terminal/bash", "for loops", "console.log"],
+    },
 
-    ]
+]
 
 
 
-// quiz.newquestion(
-//     question("Commonly used data types DO Not Include:")
-//         .correctAnswer("alerts")
-//         .incorrectAnswers("strings", "booleans", "numbers")
-// );
 
-// quiz.newquestion(
-//     question("The condition in an if/ else statement is enclosed with _____.")
-//         .correctAnswer("parenthesis")
-//         .incorrectAnswers("quotes", "curly brackets", "square brackets")
-// );
 
-// quiz.newquestion(
-//     question("Arrays in JavaScript can be used to store______.")
-//         .correctAnswer("all of the above")
-//         .incorrectAnswers("numbers and strings", "other arrays", "booleans")
-// );
-
-// quiz.newquestion(
-//     question("String values must be enclosed within ____ when being assigned to variables.")
-//         .correctAnswer("quotes")
-//         .incorrectAnswers("commas", "curly brackets", "parenthesis")
-// );
-
-// quiz.newquestion(
-//     question("A very useful tool used during development and debugging for printing content to the debugger is:")
-//         .correctAnswer("console.log")
-//         .incorrectAnswers("JavaScript", "terminal/bash", "for loops")
-// );

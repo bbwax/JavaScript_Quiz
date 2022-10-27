@@ -17,47 +17,53 @@
 
         <!-- top-bar section -->
         <div class="top-bar" id="top-bar-info">
-            <button class="nav-button"> View Highscore</button>
-            <p>Timer: 00:00 </p>
+            <nav class="navbar navbar-light bg-blue">
+                <button class="nav-button"> View Highscore</button>
+                <p id="timer">Timer: 00:00 </p>
+            </nav>
         </div>
 
         <!-- Inside Div -->
-        <div class="inside-container">
-            <header class="quiz-intro" id="quiz-intro-screen" style="display: block">
-                <h1>Welcome to the quiz</h1>
-                <p>To start the quiz, click on "start quiz"!</p>
+        <div class="jumbotron jumbotron-fluid">
+            <header class="container" id="quiz-intro-screen" style="display: block">
+                <h1 class="display-4">Welcome to the quiz</h1>
+                <p class="lead">To start the quiz, click on "start quiz"!</p>
                 <button class="nav-button" id="start-quiz-button">Start Quiz</button>
             </header>
 
 
             <!-- Main Quiz Content -->
             <main>
-                <section class="question-screen" id="question-screen" style="display : none">
-                    <h2 class="question-title" id="question-title"></h2>
-                    <ul>
-                        <li id="answer-1" class = "answers"></li>
-                        <li id= "answer-2"  class = "answers"></li>
-                        <li id= "answer-3"  class = "answers"></li>
-                        <li id= "answer-4"  class = "answers"></li>
+                <section class="container" id="question-screen" style="display : none">
+                    <h2 class="display-4" id="question-title"></h2>
+                    <ul id='answer-list' class="lead list-group ">
+                        <li id="answer-1"
+                            class="answer-button list-group-item list-group-item-action list-group-item-light "></li>
+                        <li id="answer-2"
+                            class="answer-button list-group-item list-group-item-action list-group-item-light"></li>
+                        <li id="answer-3"
+                            class="answer-button list-group-item list-group-item-action list-group-item-light"></li>
+                        <li id="answer-4"
+                            class="answer-button list-group-item list-group-item-action list-group-item-light"></li>
 
                     </ul>
-                    <footer class="question-response" id="question-response">
-                        <p>Incorrect</p>
+                    <footer class="display-4" id="question-response">
+                        <p class="lead"></p>
 
                     </footer>
 
                 </section>
 
-                <section class="quiz-finished-screen" id="quiz-finished-screen" style="display: none">
-                    <h2 class="quiz-finished-title" id="quiz-finished-title"></h2>
-                    <p>Final Score: 0</p>
+                <section class="container" id="quiz-finished-screen" style="display: none">
+                    <h2 class="display-4" id="quiz-finished-title"></h2>
+                    <p class="lead">Final Score: 0</p>
                     <div class="quiz-score" id="quiz-score">
                         <input type="text" placeholder="Type Initials Here">
                         <button class="nav-button">submit</button>
                     </div>
                 </section>
 
-                <section class="highscore-screen" id="highscore-screen" style="display:none">
+                <section class="container" id="highscore-screen" style="display:none">
                     <h2 class="highscore-title" id="highscore-title">High score:</h2>
                     <ol>
 
