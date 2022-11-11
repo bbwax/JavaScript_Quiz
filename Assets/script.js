@@ -1,49 +1,57 @@
 //set elements from index.html
 
-var startButtonEl = document.querySelector
+let startButtonEl = document.querySelector
     ("#start-quiz-button");
-var topBarInfoEl = document.querySelector
+let topBarInfoEl = document.querySelector
     ("#top-bar-info");
-var timerEl = document.querySelector
+let timerEl = document.querySelector
     ("#timer");
-var quizIntroScreenEl = document.querySelector
+let quizIntroScreenEl = document.querySelector
     ("#quiz-intro-screen");
-var questionScreenEl = document.querySelector
+let questionScreenEl = document.querySelector
     ("#question-screen");
-var questionTitleEl = document.querySelector
+let questionTitleEl = document.querySelector
     ("#question-title");
-var questionResponseEl = document.querySelector
+let questionResponseEl = document.querySelector
     ("#question-response");
-var quizFinishedScreenEl = document.querySelector
+let quizFinishedScreenEl = document.querySelector
     ("#quiz-finished-screen");
-var quizFinishedTitleEl = document.querySelector
+let quizFinishedTitleEl = document.querySelector
     ("#quiz-finished-title");
-var quizScoreEl = document.querySelector
+let quizScoreEl = document.querySelector
     ("#quiz-score");
-var highscoreScreenEl = document.querySelector
+let highscoreScreenEl = document.querySelector
     ("#highscore-screen");
-var highscoreTitleEl = document.querySelector
+let highscoreTitleEl = document.querySelector
     ("#highscore-title");
-var goBackButtonEl = document.querySelector
+let goBackButtonEl = document.querySelector
     ("#go-back-button");
-var clearScoreButtonEl = document.querySelector
+let clearScoreButtonEl = document.querySelector
     ("#clear-score-button");
-var answer1El = document.querySelector
+let answer1El = document.querySelector
     ("#answer-1");
-var answer2El = document.querySelector
+let answer2El = document.querySelector
     ("#answer-2");
-var answer3El = document.querySelector
+let answer3El = document.querySelector
     ("#answer-3");
-var answer4El = document.querySelector
+let answer4El = document.querySelector
     ("#answer-4");
-var answerButtonEl = document.querySelectorAll
+let answerButtonEl = document.querySelectorAll
     (".answer-button");
-var li = document.getElementsByTagName
+let li = document.getElementsByTagName
     ("li");
-var timer = 75;
-var qindex = 0;
+let highscoreButtonEl = document.querySelector
+    ("#highscore-button");
+let submitButtonEl = document.querySelector
+    ("#submit-button");
+let inputFormEl = document.getElementById
+    ("input-form").value;
+let timer = 75;
+let qindex = 0;
+let countdown = ''
 
 //switch from intro screen to quiz screen and display first question//
+
 startButtonEl.addEventListener("click",
     function () {
         quizIntroScreenEl.setAttribute("style", "display: none");
@@ -51,19 +59,21 @@ startButtonEl.addEventListener("click",
         questionResponseEl.setAttribute("style", "display: none");
 
 
-        var countdown = setInterval(
+        let countdown = setInterval(
             function () {
-                if (timer >= 0) {
+                if (timer > 0) {
                     timerEl.textContent = "Timer: " + timer;
                     timer--;
                 }
                 else {
                     clearInterval(countdown)
                     timerEl.textContent = "You are out of Time"
+                    
                 }
             }, 1000
         );
         nextQuestion();
+
 
     });
 
@@ -74,7 +84,7 @@ startButtonEl.addEventListener("click",
 function nextQuestion() {
     if (quizquestions[qindex]){
 
-    var currentquestion = quizquestions[qindex];
+    let currentquestion = quizquestions[qindex];
 
 
     questionTitleEl.innerHTML = currentquestion.question;
@@ -89,6 +99,7 @@ function nextQuestion() {
     }
     //switch to quiz over/score screen
     else {
+        quizOverScreen();
         console.log("quizover")
     }
 
@@ -104,8 +115,8 @@ for (i = 0; i < answerButtonEl.length; i++) {
 }
 
 function handleResponse (e){
-    var selectedAnswer = e.target.textContent;
-    var rightAnswer = quizquestions[qindex].correctanswer;
+    let selectedAnswer = e.target.textContent;
+    let rightAnswer = quizquestions[qindex].correctanswer;
     console.log(selectedAnswer,rightAnswer);
      if ( selectedAnswer == rightAnswer){
         questionResponseEl.setAttribute("style", "display: block");
@@ -121,7 +132,43 @@ function handleResponse (e){
      }
      qindex++;
      nextQuestion();
+     
 }
+
+function quizOverScreen (){
+    questionScreenEl.setAttribute("style", "display: none");
+   
+    quizFinishedScreenEl.setAttribute("style", "display: block");
+    quizFinishedTitleEl.textContent= "The quiz is Over! You got a score of: " + timer;
+    let score = timer;
+    console.log(score);
+  
+
+}
+
+//display Highscores when button Pressed
+highscoreButtonEl.addEventListener("click",function(){
+
+    questionScreenEl.setAttribute("style", "display: none");
+    quizIntroScreenEl.setAttribute("style", "display: none");
+    highscoreScreenEl.setAttribute("style", "display: block");
+    quizFinishedScreenEl.setAttribute("style", "display: none");
+})
+
+goBackButtonEl.addEventListener("click",function(){
+
+   
+    quizIntroScreenEl.setAttribute("style", "display: block");
+    highscoreScreenEl.setAttribute("style", "display: none");
+})
+
+submitButtonEl.addEventListener("click",function(event){
+    // event.preventDefault();
+    console.log(inputFormEl.value);
+
+
+
+})
 
 
 //question response function
@@ -137,7 +184,7 @@ function handleResponse (e){
 
 //quiz questions
 
-var quizquestions = [
+let quizquestions = [
     {
         question: "Commonly used data types DO Not Include:",
         correctanswer: "alerts",

@@ -18,7 +18,7 @@
         <!-- top-bar section -->
         <div class="top-bar" id="top-bar-info">
             <nav class="navbar navbar-light bg-blue">
-                <button class="nav-button"> View Highscore</button>
+                <button class="nav-button" id = highscore-button> View Highscore</button>
                 <p id="timer">Timer: 00:00 </p>
             </nav>
         </div>
@@ -56,10 +56,10 @@
 
                 <section class="container" id="quiz-finished-screen" style="display: none">
                     <h2 class="display-4" id="quiz-finished-title"></h2>
-                    <p class="lead">Final Score: 0</p>
+            
                     <div class="quiz-score" id="quiz-score">
-                        <input type="text" placeholder="Type Initials Here">
-                        <button class="nav-button">submit</button>
+                        <input type="text" id= "input-form" placeholder="Type Initials Here">
+                        <button class="nav-button" id = "submit-button">submit</button>
                     </div>
                 </section>
 
