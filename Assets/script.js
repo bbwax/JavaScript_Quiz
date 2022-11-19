@@ -45,21 +45,24 @@ let highscoreButtonEl = document.querySelector
 let submitButtonEl = document.querySelector
     ("#submit-button");
 let inputFormEl = document.getElementById
-    ("input-form").value;
+    ("input-form");
 let timer = 75;
 let qindex = 0;
-let countdown = ''
+let countdown;
 
 //switch from intro screen to quiz screen and display first question//
 
 startButtonEl.addEventListener("click",
     function () {
+        qindex = 0 ;
+        timer = 75;
+    
         quizIntroScreenEl.setAttribute("style", "display: none");
         questionScreenEl.setAttribute("style", "display: block");
         questionResponseEl.setAttribute("style", "display: none");
 
 
-        let countdown = setInterval(
+        countdown = setInterval(
             function () {
                 if (timer > 0) {
                     timerEl.textContent = "Timer: " + timer;
@@ -116,7 +119,8 @@ for (i = 0; i < answerButtonEl.length; i++) {
 
 function handleResponse (e){
     let selectedAnswer = e.target.textContent;
-    let rightAnswer = quizquestions[qindex].correctanswer;
+    console.log(qindex);
+    let rightAnswer = quizquestions[qindex].correctAnswer;
     console.log(selectedAnswer,rightAnswer);
      if ( selectedAnswer == rightAnswer){
         questionResponseEl.setAttribute("style", "display: block");
@@ -142,6 +146,8 @@ function quizOverScreen (){
     quizFinishedTitleEl.textContent= "The quiz is Over! You got a score of: " + timer;
     let score = timer;
     console.log(score);
+    clearInterval(countdown);
+    timerEl.textContent = "You are out of Time";
   
 
 }
@@ -153,6 +159,8 @@ highscoreButtonEl.addEventListener("click",function(){
     quizIntroScreenEl.setAttribute("style", "display: none");
     highscoreScreenEl.setAttribute("style", "display: block");
     quizFinishedScreenEl.setAttribute("style", "display: none");
+    renderScores();
+    
 })
 
 goBackButtonEl.addEventListener("click",function(){
@@ -160,16 +168,45 @@ goBackButtonEl.addEventListener("click",function(){
    
     quizIntroScreenEl.setAttribute("style", "display: block");
     highscoreScreenEl.setAttribute("style", "display: none");
+    quizFinishedScreenEl.setAttribute("style", "display: none");
 })
+
+let highScores = JSON.parse(localStorage.getItem("highScores"))||[];
 
 submitButtonEl.addEventListener("click",function(event){
     // event.preventDefault();
     console.log(inputFormEl.value);
+    highscoreScreenEl.setAttribute("style", "display: block");
+    if (inputFormEl.value.trim() !== ""){
 
+    let userData = {
+        initials : inputFormEl.value,
+        score : timer
+    }
 
+    highScores.push(userData);
+
+    localStorage.setItem("highScores",JSON.stringify(highScores));
+    renderScores();
+
+    inputFormEl.value = "";
+    
+    }
+    else return;
 
 })
 
+function renderScores(){
+    let scores = document.getElementById("scores")
+    scores.innerHTML= "";
+    for ( let i =0; i< highScores.length; i++){
+        let li = document.createElement("li")
+        li.textContent = highScores[i].initials+": "+highScores[i].score;
+        scores.appendChild(li);
+
+    }
+
+}
 
 //question response function
 // function questionResponse (){
@@ -187,12 +224,12 @@ submitButtonEl.addEventListener("click",function(event){
 let quizquestions = [
     {
         question: "Commonly used data types DO Not Include:",
-        correctanswer: "alerts",
+        correctAnswer: "alerts",
         answers: ["strings", "booleans", "numbers", "alerts"],
     },
     {
         question: "The condition in an if/ else statement is enclosed with _____.",
-        correctanswer: "parenthesis",
+        correctAnswer: "parenthesis",
         answers: ["quotes", "curly brackets", "square brackets", "parenthesis"],
     },
     {
